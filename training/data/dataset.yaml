@@ -1,0 +1,23 @@
+# Dataset configuration for License Plate Detection
+# This file defines the dataset structure for YOLO training
+
+# Dataset paths
+path: ../  # Dataset root directory
+train: YOLO_dataset/images/train  # Train images (relative to 'path')
+val: YOLO_dataset/images/val      # Val images (relative to 'path')
+test: YOLO_dataset/images/test    # Test images (optional, relative to 'path')
+
+# Classes
+nc: 1  # Number of classes
+names: ['license_plate']  # Class names
+
+# Additional dataset information
+description: "License Plate Detection Dataset"
+version: "1.0"
+date_created: "2024"
+contributor: "License Plate Detection Project"
+
+# Dataset statistics (will be auto-populated during training)
+# total_images: 0
+# total_annotations: 0
+# class_distribution: {} 

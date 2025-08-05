@@ -1,0 +1,113 @@
+# Training Configuration for License Plate Detection Model
+# This configuration file defines all training parameters
+
+# Model Configuration
+model:
+  architecture: "yolov8n"  # yolov8n, yolov8s, yolov8m, yolov8l, yolov8x
+  pretrained_weights: "yolov8n.pt"  # Use COCO pretrained weights
+  input_size: [640, 640]  # [width, height]
+  num_classes: 1  # License plate class only
+
+# Dataset Configuration
+dataset:
+  train_path: "training/data/train"
+  val_path: "training/data/val"
+  test_path: "training/data/test"
+  data_yaml: "training/data/dataset.yaml"
+  cache_images: true  # Cache images in RAM for faster training
+  augment: true  # Apply data augmentation
+
+# Training Configuration
+training:
+  epochs: 100
+  batch_size: 16
+  workers: 4  # Number of data loading workers
+  device: "auto"  # auto, cpu, 0, 1, etc.
+  
+  # Learning Rate
+  lr0: 0.01  # Initial learning rate
+  lrf: 0.01  # Final learning rate (lr0 * lrf)
+  momentum: 0.937
+  weight_decay: 0.0005
+  warmup_epochs: 3.0
+  warmup_momentum: 0.8
+  warmup_bias_lr: 0.1
+  
+  # Loss Configuration
+  box: 7.5  # Box loss gain
+  cls: 0.5  # Classification loss gain
+  dfl: 1.5  # Distribution Focal Loss gain
+  
+  # Optimization
+  optimizer: "SGD"  # SGD, Adam, AdamW
+  verbose: true
+  seed: 42
+
+# Validation Configuration
+validation:
+  val: true  # Validate during training
+  save_period: 10  # Save checkpoint every N epochs
+  plots: true  # Generate training plots
+  save_metrics: true  # Save metrics to CSV
+
+# Augmentation Configuration
+augmentation:
+  hsv_h: 0.015  # HSV-Hue augmentation (fraction)
+  hsv_s: 0.7    # HSV-Saturation augmentation (fraction)
+  hsv_v: 0.4    # HSV-Value augmentation (fraction)
+  degrees: 0.0   # Image rotation (+/- deg)
+  translate: 0.1  # Image translation (+/- fraction)
+  scale: 0.5     # Image scale (+/- gain)
+  shear: 0.0     # Image shear (+/- deg)
+  perspective: 0.0  # Image perspective (+/- fraction), range 0-0.001
+  flipud: 0.0    # Image flip up-down (probability)
+  fliplr: 0.5    # Image flip left-right (probability)
+  mosaic: 1.0    # Image mosaic (probability)
+  mixup: 0.0     # Image mixup (probability)
+  copy_paste: 0.0  # Segment copy-paste (probability)
+
+# Save Configuration
+save:
+  project: "training/models"
+  name: "license_plate_detector"
+  exist_ok: true
+  save_period: 10
+  save_last: true
+  save_best: true
+
+# Logging Configuration
+logging:
+  log_imgs: 16  # Number of images to log
+  log_batches: 50  # Number of batches to log
+  plots: true
+  save_dir: "training/runs"
+
+# Advanced Configuration
+advanced:
+  patience: 50  # Early stopping patience
+  min_delta: 0.001  # Minimum improvement for early stopping
+  resume: false  # Resume from last checkpoint
+  amp: true  # Automatic Mixed Precision
+  fraction: 1.0  # Fraction of dataset to use
+  profile: false  # Profile ONNX and TensorRT speeds
+  freeze: []  # Freeze layers (list of layer indices)
+  multi_scale: false  # Vary img-size +/- 50%
+  single_cls: true  # Train as single-class dataset
+  optimizer: "auto"  # Optimizer (SGD, Adam, AdamW, auto)
+  verbose: true  # Verbose output
+  seed: 42  # Global training seed
+  deterministic: true  # Deterministic training
+  workers: 8  # Dataloader workers (per RANK in DDP mode)
+  project: "training/runs"  # Save to project/name
+  name: "exp"  # Save to project/name
+  exist_ok: false  # Existing project/name ok, do not increment
+  pretrained: true  # Use pretrained model
+  optimizer: "auto"  # Optimizer (SGD, Adam, AdamW, auto)
+  verbose: true  # Verbose output
+  seed: 42  # Global training seed
+  deterministic: true  # Deterministic training
+  workers: 8  # Dataloader workers (per RANK in DDP mode)
+  project: "training/runs"  # Save to project/name
+  name: "exp"  # Save to project/name
+  exist_ok: false  # Existing project/name ok, do not increment
+  pretrained: true  # Use pretrained model 
